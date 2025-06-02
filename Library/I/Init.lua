@@ -8,20 +8,20 @@ export type InterfaceType<T> = { [string]: T }
 local I = {} -- ==> I for Interface
 I.Instances = setmetatable({}, {__mode = "v"})
 
---[[
+--[=[
 	@interface InterfaceType<T>
 	@within I
 	Represents an interface type used to define the expected structure of a table.
 ]=]
 
---[[
+--[=[
 	@function _check
 	@within I
 	@private
 	@param value any -- The value to check.
 	@param expected {string} -- The list of expected types.
 	@return boolean -- Whether the value matches one of the expected types.
-]]
+]=]
 local function _check(value: any, expected: {string}): boolean
 	for _, types in expected do
 		if types == "nil" and value == nil then
@@ -33,19 +33,19 @@ local function _check(value: any, expected: {string}): boolean
 	return false
 end
 
---[[
+--[=[
 	@function _handleError
 	@within I
 	@private
-	@param key string  The key of the interface entry.
+	@param key string -- The key of the interface entry.
 	@param errMessage string -- The associated error message.
 	@return string -- A formatted error string.
-]]
+]=]
 local function _handleError(key: string, errMessage: string): string
 	return `failed "{tostring(key)}": {errMessage}`
 end
 
---[[
+--[=[
 	@function opt
 	@within I
 	Marks a key in the interface as optional with a default value.
@@ -53,8 +53,8 @@ end
 	@param expectedType string | {string} -- The expected type(s) of the optional key.
 	@param defaultValue any -- The default value to use if the key is missing.
 	@return table -- A descriptor for the optional key.
-]]
-function I.optional(expectedType: string | { string }, defaultValue: any): {}
+]=]
+function I.opt(expectedType: string | { string }, defaultValue: any): {}
 	if type(expectedType) == "string" then
 		expectedType = { expectedType }
 	end
@@ -66,14 +66,14 @@ function I.optional(expectedType: string | { string }, defaultValue: any): {}
 	}
 end
 
---[[
+--[=[
 	@function nest
 	@within I
 	Creates a nested interface definition.
 
 	@param interface InterfaceType<any> -- The nested interface.
 	@return table -- A descriptor for the nested interface.
-]]
+]=]
 function I.nest(interface: InterfaceType<any>)
 	assert(type(interface) == "table", "I.nest: expected a table as argument.")
 	return {
@@ -82,7 +82,7 @@ function I.nest(interface: InterfaceType<any>)
 	}
 end
 
---[[
+--[=[
 	@function strict
 	@within I
 	Validates a table against a defined interface. Errors on any mismatch.
@@ -91,7 +91,7 @@ end
 	@param newTable InterfaceType<any> -- The actual table to validate.
 	@return InterfaceType<any> -- The validated and possibly completed table.
 	@throws If any required key is missing or if any type mismatches are found.
-]]
+]=]
 function I.strict(interface: InterfaceType<any>, newTable: InterfaceType<any>): {}
 	for key, value in interface do
 		local tableValue = newTable[key]
@@ -146,7 +146,7 @@ function I.strict(interface: InterfaceType<any>, newTable: InterfaceType<any>): 
 	return newTable
 end
 
---[[
+--[=[
 	@function _softVerification
 	@within I
 	@private
@@ -155,7 +155,7 @@ end
 	@param interface InterfaceType<any>
 	@param newTable InterfaceType<any>
 	@return boolean, string? -- Whether the table is valid and an optional error message.
-]]
+]=]
 local function _softVerification(interface: InterfaceType<any>, newTable: InterfaceType<any>)
 	for key, value in interface do
 		local tableValue = newTable[key]
@@ -216,7 +216,7 @@ local function _softVerification(interface: InterfaceType<any>, newTable: Interf
 	return true
 end
 
---[[
+--[=[
 	@function soft
 	@within I
 	Safely validates a table against an interface. Will throw an error with a readable message if invalid.
@@ -225,7 +225,7 @@ end
 	@param newTable InterfaceType<any>
 	@return true -- If the validation succeeds.
 	@throws If validation fails, the error contains the exact cause.
-]]
+]=]
 function I.soft(interface: InterfaceType<any>, newTable: InterfaceType<any>): boolean
 	local isValid, err = _softVerification(interface, newTable)
 	if not isValid then
@@ -234,7 +234,7 @@ function I.soft(interface: InterfaceType<any>, newTable: InterfaceType<any>): bo
 	return true
 end
 
---[[
+--[=[
 	@function fromType
 	@within I
 	Generates a strict interface definition based on an existing typed table.
@@ -244,7 +244,7 @@ end
 
 	@param typeTable T -- A Lua table that serves as a sample of the structure of a type.
 	@return InterfaceType<T> -- An interface compatible with I.strict and I.soft.
-]]
+]=]
 function I.fromType(typeTable: any): I.InterfaceType<any>
 	local result = {}
 
@@ -268,18 +268,17 @@ end
 
 -- @Alias
 I.test = I.soft
-I.opt = I.optional
-I.maybe = I.optional
+I.maybe = I.opt
 I.fromType = I.from
 
---[[
+--[=[
 	@function get
 	@within I
 	Retrieves a validated instance by index.
 
 	@param index number -- The index of the stored validated table.
 	@return table? -- The validated table or nil if not found.
-]]
+]=]
 function I.get(index: number): {}
 	return I.Instances[index]
 end
