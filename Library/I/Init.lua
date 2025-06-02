@@ -1,7 +1,7 @@
---[[
+--[=[
 I library by @Showni
 	ENJOY !
-]]
+]=]
 
 export type InterfaceType<T> = { [string]: T }
 
