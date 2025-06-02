@@ -14,4 +14,4 @@ A Roblox Lua module for easy user input handling (keyboard/mouse/gamepad) with c
 
 ## Dependencies
 - [Trove](https://github.com/Sleitnick/RbxUtil/blob/main/modules/trove/init.luau) by [Sleitnick](https://github.com/Sleitnick) (1# god of roblox)
-- [I](https://github.com/ShowniDev/RobloxUtils.luau/blob/main/Library/I/Init.lua) by [Me](https://github.com/ShowniDev)
+- [I_lib](https://github.com/ShowniDev/RobloxUtils.luau/blob/main/Library/I/Init.lua) by [Me(Showni)](https://github.com/ShowniDev)
