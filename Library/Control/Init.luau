@@ -2,7 +2,7 @@
 -- PLS READ README.md FOR DEPENDENCIES !
 -- PLS READ README.md FOR DEPENDENCIES !
 
---[[
+--[=[
 	Control library V4 by @Showni  
 	A flexible input management module for Roblox, supporting key binding, toggle and loop actions.
 
@@ -28,7 +28,7 @@
 	@field onRelease function Callback when key is released or toggled off
 	@field state boolean Current toggle state
 	@field active boolean Whether the action is active
-]]
+]=]
 
 local ServerScriptService = game:GetService("ServerScriptService")
 local Uis = game:GetService("UserInputService")
