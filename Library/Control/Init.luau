@@ -78,7 +78,7 @@ local OptionsInterface = {
 	onRelease = i.opt("function", NULL),
 }
 
---[[
+--[=[
 	Creates a new Control instance.
 
 	@return Control A new Control instance.
@@ -91,12 +91,12 @@ function Control.new(): Control
 	return self
 end
 
---[[
+--[=[
 	Converts a string or input object to an EnumItem or string key.
 
 	@param key string | EnumItem | Instance Input to convert.
 	@return EnumItem | string | nil Converted key or nil if invalid.
-]]
+]=]
 function Control._Convert(self: Control, key: string): EnumItem | string | nil
 	if typeof(key) == "string" then
 		return Enum.KeyCode[key] or Enum.UserInputType[key] or key
@@ -111,21 +111,21 @@ function Control._Convert(self: Control, key: string): EnumItem | string | nil
 	end
 end
 
---[[
+--[=[
 	Helper function to start a loop callback bound to RenderStepped.
 
 	@param callback function Callback to execute every frame.
 	@return RBXScriptConnection Connection to RenderStepped.
-]]
+]=]
 function Control._Loop(self: Control, callback: () -> ()): RBXScriptConnection
 	return RunService.RenderStepped:Connect(callback)
 end
 
---[[
+--[=[
 	Starts listening to user input and triggers bound actions accordingly.
 
 	@void
-]]
+]=]
 function Control:Start()
 	local began = Uis.InputBegan:Connect(function(input, gp)
 		if gp then return end
@@ -178,7 +178,7 @@ function Control:Start()
 	self:GetTrove():Add(ended)
 end
 
---[[
+--[=[
 	Binds a new action to a key or input.
 
 	@param options Action Table describing the action to bind:
@@ -190,7 +190,7 @@ end
 		- onRelease function: Callback called when key is released (default no-op)
 
 	@void
-]]
+]=]
 function Control:Bind(options: Action)
 	local success, err = pcall(function()
 		i.soft(OptionsInterface, options)
@@ -210,18 +210,18 @@ function Control:Bind(options: Action)
 	}
 end
 
---[[
+--[=[
 	Unbinds an action by name.
 
 	@param actionName string Name of the action to unbind.
 
 	@void
-]]
+]=]
 function Control:UnBind(actionName: string)
 	self._Actions[actionName] = nil
 end
 
---[[
+--[=[
 	Edits the key binding of an existing action.
 
 	@param action string Name of the action to edit.
@@ -229,26 +229,26 @@ end
 
 	@void
 	@throws If action name does not exist.
-]]
+]=]
 function Control:Edit(action: string, newKey: string)
 	assert(self._Actions[action], `Action "{action}" not found.`)
 	self._Actions[action].key = newKey
 end
 
---[[
+--[=[
 	Returns the last pressed key or input.
 
 	@return EnumItem | string | nil Last pressed key or nil if none.
-]]
+]=]
 function Control:GetLastKey(): EnumItem | string | nil
 	return self._LastKey
 end
 
---[[
+--[=[
 	Returns the table of all bound actions.
 
 	@return { [string]: Action } The actions currently bound.
-]]
+]=]
 function Control:GetActions(): { [string]: Action }
 	return self._Actions
 end
