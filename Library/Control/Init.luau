@@ -141,7 +141,7 @@ function Control:Start()
 			end
 
 			if action.toggle then
-				action.state = not action.state
+				action.state = not action.state;
 				(action.state and action.onPress or action.onRelease)()
 				continue
 			end
