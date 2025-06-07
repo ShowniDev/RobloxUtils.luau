@@ -1,7 +1,7 @@
---[=[
+--[[
 I library by @Showni
 	ENJOY !
-]=]
+]]
 
 export type InterfaceType<T> = { [string]: T }
 
@@ -245,7 +245,7 @@ end
 	@param typeTable T -- A Lua table that serves as a sample of the structure of a type.
 	@return InterfaceType<T> -- An interface compatible with I.strict and I.soft.
 ]=]
-function I.fromType(typeTable: any): I.InterfaceType<any>
+   function I.fromType(typeTable: any): I.InterfaceType<any>
 	local result = {}
 
 	for key, value in typeTable do
@@ -269,7 +269,7 @@ end
 -- @Alias
 I.test = I.soft
 I.maybe = I.opt
-I.fromType = I.from
+I.from = I.fromType
 
 --[=[
 	@function get
