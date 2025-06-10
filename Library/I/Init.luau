@@ -30,6 +30,7 @@ local function _check(value: any, expected: {string}): boolean
 			return true
 		end
 	end
+
 	return false
 end
 
@@ -245,7 +246,7 @@ end
 	@param typeTable T -- A Lua table that serves as a sample of the structure of a type.
 	@return InterfaceType<T> -- An interface compatible with I.strict and I.soft.
 ]=]
-   function I.fromType(typeTable: any): I.InterfaceType<any>
+function I.fromType(typeTable: any): I.InterfaceType<any>
 	local result = {}
 
 	for key, value in typeTable do
